@@ -33,8 +33,7 @@ function callback_init(){
         'no' => 0,
         'desc' => '执行灌水任务',
         'freq' => 0,
-        'log' => '',
-        'lastdo' => ''
+        'log' => ''
     ];
     cron::aset('seth8277_post', $cron_options);
 }
