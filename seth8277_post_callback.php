@@ -52,7 +52,8 @@ function callback_setting()
     global $i;
     $option = [
         'max_post' => $_POST['max_post'] ?? 20,
-        'min_interval' => $_POST['min_interval'] ?? 60
+        'min_interval' => $_POST['min_interval'] ?? 60,
+        'everytime' => $_POST['everytime'] ?? 200
     ];
     option::pset('seth8277_post', $option);
     Redirect("index.php?mod=admin:setplug&plug={$i['mode'][1]}&ok");

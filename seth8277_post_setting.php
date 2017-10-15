@@ -47,7 +47,7 @@ $s = option::pget('seth8277_post');
                 每次执行灌水数量 -1表示全部
             </td>
             <td>
-                <input type="number" min="0" class="form-control" name="everytime" value="<?php echo $s['everytime'] ?>"
+                <input type="number" class="form-control" name="everytime" value="<?php echo $s['everytime'] ?>"
                        required>
             </td>
         </tr>
