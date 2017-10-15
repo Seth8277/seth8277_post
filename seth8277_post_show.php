@@ -22,7 +22,7 @@ if ($_GET['mod'] == 'add') {
     $baiduid_id = $_POST['pid'];
     $starttime = $_POST['starttime'];
     $stoptime = $_POST['stoptime'];
-    if(empty($_POST['spacing_time'] || empty($_POST['pid']) || empty($_POST['starttime']) || empty($_POST['stoptime']))){
+    if (empty($_POST['spacing_time'] || empty($_POST['pid']) || empty($_POST['starttime']) || empty($_POST['stoptime']))) {
         throw new Exception('信息不完整');
     } elseif (count($s['posts']) >= $s['max_post'] && ISVIP == false) {
         throw new Exception('您的灌水数量已到达上限');
@@ -36,7 +36,7 @@ if ($_GET['mod'] == 'add') {
         throw new Exception('请输入干净的链接');
     } elseif ($m->once_fetch_array('SELECT * FROM ' . DB_PREFIX . "baiduid WHERE `id` = {$_POST['pid']}") < 1) {
         throw new Exception('不要作死');
-    }elseif ($m->count("seth8277_post", "`post_url` = '{$post_url}'") > 0)
+    } elseif ($m->count("seth8277_post", "`post_url` = '{$post_url}'") > 0)
         throw new Exception('请勿重复添加');
 
     $m->query("INSERT INTO " . DB_PREFIX . <<<ORZ
@@ -78,35 +78,36 @@ if (isset($_GET['ok'])) {
     当前已设置 <?= count($s['posts']) ?> 个要灌水的帖子 <br/>
     根据管理员的设置，您目前最多可以添加 <?= $s['max_post'] ?> 个帖子，发帖最小间隔时间为 <?= $s['min_interval'] ?> 秒
 </div>
-
-<table class="table table-responsive">
-    <thead>
-    <tr>
-        <td>帖子</td>
-        <td>用户</td>
-        <td>开始时间</td>
-        <td>结束时间</td>
-        <td>下次执行</td>
-        <td>执行状态</td>
-        <td>间隔 (s)</td>
-        <td>操作</td>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($s['posts'] as $key => $value) {
-        echo "<tr>";
-        echo "<td><a href='https://tieba.baidu.com/p/{$value['post_url']}' target='_blank'>{$value['post_url']}</a>";
-        echo "<td>" .$i['user']['baidu'][$value['baiduid_id']] ?? "{$key}" . "</td>";
-        echo "<td>{$value['starttime']}</td>";
-        echo "<td>{$value['stoptime']}</td>";
-        echo "<td>{$value['nextdo']}</td>";
-        echo "<td>" . getStatusMsg($value['status']) . "</td>";
-        echo "<td>{$value['spacing']}</td>";
-        echo "<td><a href='index.php?plugin=seth8277_post&mod=del&post_id={$value['id']}' class='btn btn-warning'>删除</a></td>";
-        echo "</tr>";
-    } ?>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-hover" style="width:100%;">
+        <thead>
+        <tr>
+            <td>帖子</td>
+            <td>用户</td>
+            <td>开始时间</td>
+            <td>结束时间</td>
+            <td>下次执行</td>
+            <td>执行状态</td>
+            <td>间隔 (s)</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($s['posts'] as $key => $value) {
+            echo "<tr>";
+            echo "<td><a href='https://tieba.baidu.com/p/{$value['post_url']}' target='_blank'>{$value['post_url']}</a>";
+            echo "<td>" . $i['user']['baidu'][$value['baiduid_id']] ?? "{$key}" . "</td>";
+            echo "<td>{$value['starttime']}</td>";
+            echo "<td>{$value['stoptime']}</td>";
+            echo "<td>{$value['nextdo']}</td>";
+            echo "<td>" . getStatusMsg($value['status']) . "</td>";
+            echo "<td>{$value['spacing']}</td>";
+            echo "<td><a href='index.php?plugin=seth8277_post&mod=del&post_id={$value['id']}' class='btn btn-warning'>删除</a></td>";
+            echo "</tr>";
+        } ?>
+        </tbody>
+    </table>
+</div>
 
 <div class="modal fade" id="addpost" tabindex="-1" role="dialog" aria-labelledby="addpost" aria-hidden="true">
     <div class="modal-dialog">
